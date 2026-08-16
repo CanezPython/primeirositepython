@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="container mt-3">
+        <h1 style="color: orange"> Meu primeiro site construído em Python3</h1>
+        <h2>Sou um entusiasta em técnologia, aprendendo!!!</h2>
+        <hr>
+        {% for post in posts %}
+        <div class="row border mt-4 p-3 align-items-start meupost">
+            <div class="col col-2">
+                <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" alt="User Profile" class="rounded-circle profile-img mb-3">               
+                <strong>{{ post.autor.username }}</strong>
+
+                <div class="row justify-content-center">                    
+                    {% for curso in post.autor.cursos.split(';') %}
+                        <button type="button" class="btn btn-success mt-2" disabled>{{ curso }}</button>
+                    {% endfor %}                    
+                </div>            
+            </div>
+            <div class="col col-9">                
+            <a style="text-decoration: none" href="{{ url_for('exibir_post', post_id=post.id) }}"><h3>{{ post.titulo }}</h3></a>
+            <p>{{ post.corpo }}</p>                
+            </div>
+
+        </div>
+        {% endfor %}        
+    </div>
+{% endblock %}
+
+   
