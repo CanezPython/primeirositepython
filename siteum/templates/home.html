@@ -15,7 +15,7 @@
         </div>
         </main>    
         <hr>
-        <p>Quantidade de posts: {{ posts|length }}</p>
+        <!-- <p>Quantidade de posts: {{ posts|length }}</p> -->
 
                     
         {% for post in posts %}        
@@ -34,8 +34,8 @@
                 <a style="text-decoration: none" href="{{ url_for('exibir_post', post_id=post.id) }}"><h3>{{ post.titulo }}</h3></a>
                 <p>{{ post.corpo }}</p>                
             </div>
-
         </div>
         {% endfor %}        
     </div>    
 {% endblock %}
+   
