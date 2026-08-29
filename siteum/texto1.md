@@ -23,7 +23,8 @@ Ele representa meu primeiro passo na construção de um projeto próprio utiliza
 Este projeto foi desenvolvido acompanhando as instruções do professor Lira, da plataforma Hashtag. Digitei linha por linha do código, acompanhando cada etapa para compreender como tudo funciona.
 
 Mas também quis deixar uma pequena marca pessoal no projeto. Por isso, fiz algumas alterações e criei a aba “dropdown” no menu, onde apresento um pouco mais sobre mim e sobre a construção deste site.
-Também adicionei estas quatro páginas de texto. Onde conto um pouco sobre mim, do meu trabalho e do meu estudo em Python.
+Também separei as paginas de login e criar conta. Já que nas aulas de criação deste site ensina como fazer, mas com login e criar conta na mesma página. Onde depois de criar a conta o usuário é levado direto para página de login.
+E adicionei estas quatro páginas de texto. Onde conto um pouco sobre mim, do meu trabalho e do meu estudo em Python.
 
 Este é apenas o primeiro.
 Em breve, meu segundo site.
