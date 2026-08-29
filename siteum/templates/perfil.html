@@ -32,8 +32,18 @@
         <div class="col-4" style="text-align: center">
             <strong>Cursos</strong><br>
             {% for curso in current_user.cursos.split(';') %}
-                <button type="button" class="btn btn-success mt-2" disabled>{{ curso }}</button>
+                <button type="button" class="btn btn-success mt-2" disabled>{{ curso }}</button>               
             {% endfor %}
+            <form action="{{ url_for('excluir_usuario', usuario_id=current_user.id) }}"
+                method="POST"
+                class="mt-3">
+
+                <button type="submit" class="btn btn-danger">
+                    Excluir usuário
+                </button>
+
+            </form>
+
         </div>
     </div>
 
