@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
     <div class="container mt-3">
-        <h1 style="color: orange"> Meu primeiro site construído em Python3</h1>
-        <h2>Sou um entusiasta em técnologia, aprendendo!!!</h2>
+        <main class="pagina-especifica">
+        <div class="text-center">
+            <div class="mt-6">
+                <h2 style="color: rgb(0, 0, 0)">Meu primeiro site construído em Python3</h2>
+            </div>
+        </div>
+        <div class="text-center my-4">
+            <a href="/apresentacao" class="text-secondary fw-bold link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
+                <h4>Uma idéia que me trouxe de volta à programação</h4>
+            </a>
+        </div>
+        </main>    
         <hr>
-        {% for post in posts %}
+        <p>Quantidade de posts: {{ posts|length }}</p>
+
+                    
+        {% for post in posts %}        
         <div class="row border mt-4 p-3 align-items-start meupost">
             <div class="col col-2">
                 <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" alt="User Profile" class="rounded-circle profile-img mb-3">               
@@ -19,13 +31,11 @@
                 </div>            
             </div>
             <div class="col col-9">                
-            <a style="text-decoration: none" href="{{ url_for('exibir_post', post_id=post.id) }}"><h3>{{ post.titulo }}</h3></a>
-            <p>{{ post.corpo }}</p>                
+                <a style="text-decoration: none" href="{{ url_for('exibir_post', post_id=post.id) }}"><h3>{{ post.titulo }}</h3></a>
+                <p>{{ post.corpo }}</p>                
             </div>
 
         </div>
         {% endfor %}        
-    </div>
+    </div>    
 {% endblock %}
-
-   
