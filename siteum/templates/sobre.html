@@ -1,6 +1,158 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <div class="container"></div>
-        <h2>Sobre o Projeto</h2>
+<style>
+    /* Centraliza o artigo e cria um fundo neutro para descansar a visão */
+    .container-leitura {
+        display: flex;
+        justify-content: center;
+        padding: 60px 20px;
+        background-color: #f8fafc; /* Fundo suave levemente azulado/cinza */
+        min-height: 100vh;
+    }
+
+    /* Caixa do Artigo Principal (Efeito Folha de Papel Limpa) */
+    .conteudo-artigo {
+        max-width: 680px; /* Largura ideal para os olhos não se perderem nas linhas */
+        width: 100%;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.8; /* Ótimo espaçamento vertical entre frases */
+        color: #334155; /* Grafite escuro elegante (reduz o cansaço do preto puro) */
+    }
+
+    /* Título Principal (Criado com # no Markdown) */
+    .conteudo-artigo h1 {
+        font-size: 24px;
+        font-weight: 800;
+        color: #0f172a; /* Tom quase preto para dar destaque máximo */
+        line-height: 1.25;
+        margin-bottom: 32px;
+        border-bottom: 2px solid #f1f5f9;
+        padding-bottom: 16px;
+        text-align: center;
+    }
+
+    /* Subtítulos (Criados com ## no Markdown) */
+    .conteudo-artigo h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1e293b;
+        margin-top: 40px;
+        margin-bottom: 16px;
+    }
+
+    /* Parágrafos de Texto */
+    .conteudo-artigo p {
+        margin-bottom: 24px;
+    }
+
+    /* Listas com Marcadores (Criadas com * ou - no Markdown) */
+    .conteudo-artigo ul, .conteudo-artigo ol {
+        margin-bottom: 24px;
+        padding-left: 24px;
+    }
+
+    .conteudo-artigo li {
+        margin-bottom: 10px;
+        color: #475569;
+    }
+
+    /* Textos em Negrito (Criados com ** no Markdown) */
+    .conteudo-artigo strong {
+        color: #0f172a;
+        font-weight: 600;
+    }
+
+    /* Citações ou Blocos de Destaque (Criados com > no Markdown) */
+    .conteudo-artigo blockquote {
+        margin: 32px 0;
+        padding: 16px 24px;
+        background-color: #f1f5f9;
+        border-left: 4px solid #3b82f6; /* Detalhe lateral azul */
+        color: #475569;
+        font-style: italic;
+        border-radius: 0 8px 8px 0;
+    }
+
+    /* Linha divisória horizontal (Criada com --- no Markdown) */
+    .conteudo-artigo hr {
+        border: 0;
+        border-top: 2px solid #e2e8f0;
+        margin: 40px 0;
+    }
+
+    /* Bloco de Estilo Completo para o Autor */
+    .autor-final {
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+        gap: 12px;
+        margin-top: 16px;       /* Une o bloco ao título */
+        margin-bottom: 36px;     /* Afasta o bloco do texto principal */
+        padding-bottom: 16px;
+        border-bottom: 1px dashed #e2e8f0; /* Linha tracejada sutil inferior */
+    }
+
+    /* Ícone ou Detalhe Visual ao lado do nome */
+    .autor-icone {
+        width: 8px;
+        height: 8px;
+        background-color: #3f4c61; /* Pontinho azul moderno */
+        border-radius: 50%;
+    }
+
+   .autor-nome {
+        color: #334155;
+        font-weight: 600;        /* Deixa o nome levemente em negrito */
+    }
+
+    .autor-data {
+        color: #94a3b8;          /* Data um pouco mais clara que o nome */
+    }
+
+    /* ESTILO DO BOTÃO VOLTAR (AGORA CONFIGURADO PARA O FINAL) */
+    .botao-voltar {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: #64748b;         
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 40px;       /* Cria espaço entre a assinatura e o botão */
+        padding: 8px 16px;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;    
+        background-color: #fff;
+        transition: all 0.2s ease;
+    }
+
+    /* Efeito ao passar o mouse */
+    .botao-voltar:hover {
+        color: #1e293b;         
+        border-color: #cbd5e1;  
+        background-color: #f8fafc; 
+        transform: translateX(-4px); 
+    }
+</style>
+
+<main class="container-leitura">
+    <article class="conteudo-artigo">
+          <!-- O seu texto convertido entra aqui -->
+        {{ texto_doc | safe }}
+
+            <!-- O BOTÃO VOLTAR FOI MOVIDO PARA CÁ (FINAL DA PÁGINA) -->
+        <div style="text-align: left;">
+            <a href="{{ url_for('home') }}" class="botao-voltar">
+                ← Voltar para o início
+            </a>
+        </div>
+
+    </article>
+</main>    
 {% endblock %}
