@@ -6,11 +6,13 @@ from flask_login import login_user, logout_user, current_user, login_required
 import secrets
 import os
 from PIL import Image
+import markdown
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/')
 def home():
-    posts = Post.query.order_by(Post.id.desc())
+    posts = Post.query.order_by(Post.id.desc()).all()
     return render_template('home.html', posts=posts)
 
 @app.route('/contato')
@@ -25,41 +27,149 @@ def usuarios():
 
 @app.route('/sobre')
 def sobre():
-    return render_template('sobre.html')
+    caminho_do_arquivo = os.path.join(BASE_DIR, "texto2.md")
+        
+    if os.path.exists(caminho_do_arquivo):
+        with open(caminho_do_arquivo, "r", encoding="utf-8") as arquivo:
+            conteudo_puro = arquivo.read()
+        texto_convertido = markdown.markdown(conteudo_puro)
+    else:
+        texto_convertido = f"<p>Erro: O arquivo não foi encontrado em: {caminho_do_arquivo}</p>"
+    
+    return render_template('sobre.html', texto_doc=texto_convertido)
 
-@app.route('/info')
-def info():
-    return render_template('info.html')
+@app.route('/otrabalho')
+def otrabalho():
+    caminho_do_arquivo = os.path.join(BASE_DIR, "texto3.md")
+        
+    if os.path.exists(caminho_do_arquivo):
+        with open(caminho_do_arquivo, "r", encoding="utf-8") as arquivo:
+            conteudo_puro = arquivo.read()
+        texto_convertido = markdown.markdown(conteudo_puro)
+    else:
+        texto_convertido = f"<p>Erro: O arquivo não foi encontrado em: {caminho_do_arquivo}</p>"
+    
+    return render_template('otrabalho.html', texto_doc=texto_convertido)
 
 @app.route('/quemsoueu')
 def quemsoueu():
-    return render_template('quemsoueu.html')
+    caminho_do_arquivo = os.path.join(BASE_DIR, "texto4.md")
+            
+    if os.path.exists(caminho_do_arquivo):
+        with open(caminho_do_arquivo, "r", encoding="utf-8") as arquivo:
+            conteudo_puro = arquivo.read()
+        texto_convertido = markdown.markdown(conteudo_puro)
+    else:
+        texto_convertido = f"<p>Erro: O arquivo não foi encontrado em: {caminho_do_arquivo}</p>"
+    
+    return render_template('quemsoueu.html', texto_doc=texto_convertido)
 
+@app.route('/apresentacao')
+def apresentacao():
+    caminho_do_arquivo = os.path.join(BASE_DIR, "texto1.md")
+    
+    # Verifica de forma simples se o arquivo existe (evita o try/except problemático)
+    if os.path.exists(caminho_do_arquivo):
+        with open(caminho_do_arquivo, "r", encoding="utf-8") as arquivo:
+            conteudo_puro = arquivo.read()
+        texto_convertido = markdown.markdown(conteudo_puro)
+    else:
+        texto_convertido = f"<p>Erro: O arquivo não foi encontrado em: {caminho_do_arquivo}</p>"
+ 
+    return render_template('apresentacao.html', texto_doc=texto_convertido)
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form_login = FormLogin()
-    form_criarconta = FormCriarConta()
+
+    if request.method == 'GET':
+
+        email = request.args.get('email')
+
+        if email:
+            form_login.email.data = email
+
+    foco_senha = request.args.get('foco_senha') == '1'
+
     if form_login.validate_on_submit() and 'botao_submit_login' in request.form:
-        usuario = Usuario.query.filter_by(email=form_login.email.data).first()
-        if usuario and bcrypt.check_password_hash(usuario.senha, form_login.senha.data):
-            login_user(usuario, remember=form_login.lembrar_dados.data)
-            flash(f'Login feito com sucesso no e-mail: {form_login.email.data}', 'alert-success')
+        usuario = Usuario.query.filter_by(
+            email=form_login.email.data
+        ).first()
+
+        if usuario and bcrypt.check_password_hash(
+            usuario.senha,
+            form_login.senha.data
+        ):
+
+            login_user(
+                usuario,
+                remember=form_login.lembrar_dados.data
+            )
+
+            flash(
+                f'Login feito com sucesso no e-mail: {form_login.email.data}',
+                'alert-success'
+            )
+
             par_next = request.args.get('next')
+
             if par_next:
                 return redirect(par_next)
             else:
                 return redirect(url_for('home'))
+
         else:
-            flash(f'Falha no Login', 'alert-danger')
+
+            flash('Falha no Login', 'alert-danger')
+
+
+    return render_template(
+        'login.html',
+        form_login=form_login,
+        foco_senha=foco_senha
+    )
+    
+
+@app.route('/pcriarconta', methods=['GET', 'POST'])
+def criarconta():
+
+    form_criarconta = FormCriarConta()
+
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
-        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data).decode("utf-8")
-        usuario = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=senha_cript)
+
+        senha_cript = bcrypt.generate_password_hash(
+            form_criarconta.senha.data
+        ).decode("utf-8")
+
+        usuario = Usuario(
+            username=form_criarconta.username.data,
+            email=form_criarconta.email.data,
+            senha=senha_cript
+        )
+
         database.session.add(usuario)
         database.session.commit()
-        flash(f'Conta criada para o e-mail: {form_criarconta.email.data}', 'alert-success')
-        return redirect(url_for('home'))
-    return render_template('login.html', form_login=form_login, form_criarconta=form_criarconta)
+
+        flash(
+            f'Conta criada para o e-mail: {form_criarconta.email.data}',
+            'alert-success'
+        )
+
+        return redirect(
+            url_for(
+                'login',
+                email=form_criarconta.email.data,
+                foco_senha=1
+            )
+        )
+
+    return render_template(
+        'pcriarconta.html',
+        form_criarconta=form_criarconta
+    )
 
 @app.route('/sair')
 @login_required
@@ -105,6 +215,19 @@ def atualizar_cursos(form):
             if campo.data:
                 lista_cursos.append(campo.label.text)
     return ';'.join(lista_cursos)
+
+@app.route('/usuario/<int:usuario_id>/excluir', methods=['POST'])
+@login_required
+def excluir_usuario(usuario_id):
+
+    usuario = Usuario.query.get_or_404(usuario_id)
+
+    database.session.delete(usuario)
+    database.session.commit()
+
+    flash('Usuário excluído com sucesso!', 'alert-success')
+
+    return redirect(url_for('usuarios'))
 
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required
@@ -158,17 +281,3 @@ def excluir_post(post_id):
         return redirect(url_for('home'))
     else:
         abort(403)
-
-
-# @app.route("/criarconta", methods=["GET", "POST"])
-# def criarconta():
-#    form_criarconta = FormCriarConta()
-#    if fomr_criarconta.validate_on_submit():
-#        senha = bcrypt.generate_password_hash(form_criarconta.username.data,
-#                                              senha=senha, email=form_criarconta.email.data)
-#        database.session.add(usuario)
-#        database.session.commit()
-#        login_user(usuario, remember-True)
-#        return redirect(url_for("perfil" usuario=usuario.username))
-    
-# return render_template("criarconta.html", form=form_criarconta)
