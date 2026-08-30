@@ -32,8 +32,8 @@ class FormEditarPerfil(FlaskForm):
     curso_photoshop = BooleanField('Adobe Shottoshop')
     curso_afer = BooleanField('Adobe After Effects')
     curso_ilu = BooleanField('Adobe Illustrator')
-    curso_historia = BooleanField("Cuso de História")
-    curso_preguica = BooleanField('Curso de Preguiça')
+    curso_historia = BooleanField("Cuso de Vídeo")
+    curso_preguica = BooleanField('Curso de Foto')
 
     botao_submit_editarperfil = SubmitField('Confirmar Edição')
 
