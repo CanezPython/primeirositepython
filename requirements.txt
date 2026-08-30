@@ -15,6 +15,7 @@ gunicorn==26.0.0
 idna==3.18
 itsdangerous==2.2.0
 Jinja2==3.1.6
+Markdown==3.7
 MarkupSafe==3.0.3
 packaging==26.3
 pillow==12.3.0
