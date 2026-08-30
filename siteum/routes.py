@@ -222,10 +222,17 @@ def excluir_usuario(usuario_id):
 
     usuario = Usuario.query.get_or_404(usuario_id)
 
-    database.session.delete(usuario)
-    database.session.commit()
+    try:
+        Post.query.filter_by(id_usuario=usuario.id).delete()
+        database.session.delete(usuario)
+        database.session.commit()
 
-    flash('Usuário excluído com sucesso!', 'alert-success')
+        flash('Usuário excluído com sucesso!', 'alert-success')
+
+    except Exception as erro:
+        database.session.rollback()
+        print(f'ERRO AO EXCLUIR USUÁRIO: {erro}')
+        flash('Erro ao excluir usuário.', 'alert-danger')
 
     return redirect(url_for('usuarios'))
 
