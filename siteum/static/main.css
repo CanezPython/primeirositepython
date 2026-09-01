@@ -35,8 +35,74 @@
     background: #f2f5fd !important;
 }
 
-.pagina-especifica {
-    margin: 50px auto;
-    padding: 0 40px;
-    max-width: 1200px;
+.contact-container {
+    max-width: 650px;
+    margin: 80px auto;
+    padding: 55px 45px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+}
+
+.contact-brand h1 {
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 9px;
+    margin-bottom: 10px;
+}
+
+.brand-line {
+    width: 55px;
+    height: 3px;
+    background: #000;
+    margin: 18px auto;
+}
+
+.contact-brand p {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #777;
+    margin-bottom: 50px;
+}
+
+.contact-content h2 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.contact-text {
+    color: #777;
+    margin-bottom: 35px;
+}
+
+.contact-info h4 {
+    margin-bottom: 8px;
+}
+
+.contact-info p {
+    margin-bottom: 6px;
+}
+
+.development {
+    margin-top: 22px !important;
+    font-weight: 500;
+}
+
+.technologies {
+    font-size: 14px;
+    color: #777;
+    letter-spacing: 1px;
+    margin-bottom: 25px !important;
+}
+
+.contact-email {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.contact-email:hover {
+    text-decoration: underline;
 }

@@ -59,7 +59,82 @@
                     {{ form.botao_submit_editarperfil(class="btn btn-primary mt-2") }}
                 </form>
             </div>            
+        </div>        
+<!-- Modal de confirmação -->
+                </div>
+
+        <!-- Botão para abrir o modal -->
+        <div class="text-center mt-4">
+
+            <button type="button"
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ExcluirUsuario">
+
+                Excluir Usuário
+
+            </button>
+
         </div>
+
+
+        <!-- Modal de confirmação -->
+        <div class="modal fade"
+             id="ExcluirUsuario"
+             tabindex="-1"
+             aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                            Excluir Usuário
+                        </h1>
+
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Fechar">
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        Você quer excluir seu usuário?
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+
+                        <form method="POST"
+                              action="{{ url_for('excluir_usuario', usuario_id=current_user.id) }}">
+
+                            <button type="submit"
+                                    class="btn btn-danger">
+                                Excluir Usuário
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 {% endblock %}

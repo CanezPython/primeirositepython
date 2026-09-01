@@ -222,19 +222,16 @@ def excluir_usuario(usuario_id):
 
     usuario = Usuario.query.get_or_404(usuario_id)
 
-    try:
-        Post.query.filter_by(id_usuario=usuario.id).delete()
-        database.session.delete(usuario)
-        database.session.commit()
+    Post.query.filter_by(id_usuario=usuario.id).delete()
 
-        flash('Usuário excluído com sucesso!', 'alert-success')
+    database.session.delete(usuario)
+    database.session.commit()
+    
+    logout_user()
+    
+    flash('Usuário excluído com sucesso!', 'alert-success')
 
-    except Exception as erro:
-        database.session.rollback()
-        print(f'ERRO AO EXCLUIR USUÁRIO: {erro}')
-        flash('Erro ao excluir usuário.', 'alert-danger')
-
-    return redirect(url_for('usuarios'))
+    return redirect(url_for('home'))
 
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required
