@@ -14,6 +14,8 @@ Aos poucos, aquilo que começou como algumas linhas de código foi se transforma
 E quando finalmente vi o site pronto, percebi que o projeto representava muito mais do que uma página na internet.
 Representava uma volta.
 
+Fundamental aprender certas ferramentas que agregam e facilitam a programação. Muito interassante aprender um framework como o Flask, que facilita muito o trabalho, pessibilitando e facilitando usar links, criptografar senhas, etc. 
+
 Uma volta à programação, à curiosidade e à vontade de construir coisas.
 Este é meu primeiro site em Python.
 Não é o ponto final.
